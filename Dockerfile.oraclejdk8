@@ -7,6 +7,10 @@ COPY ./files/settings.xml $HOME/.m2/
 # We need root to install packages
 USER root
 
+RUN subscription-manager register --username=loren@redhat.com --password=Happy123 && \
+    subscription-manager refresh && \
+    subscription-manager attach --pool=8a85f9956f0fa901016f3575a15b1ca6
+
 # Install Oracle JDK
 RUN INSTALL_PKGS="java-1.8.0-oracle java-1.8.0-oracle-devel" && \
     yum install -y --enablerepo rhel-7-server-thirdparty-oracle-java-rpms $INSTALL_PKGS && \
